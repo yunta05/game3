@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cell Chain Arena</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas" aria-label="Cell Chain Arena"></canvas>
+
+    <div id="overlay" class="screen active">
+      <div class="panel">
+        <h1>Cell Chain Arena</h1>
+        <p class="subtitle">顕微鏡下の寒天培地で生き残れ。</p>
+
+        <div class="controls">
+          <h2>操作</h2>
+          <ul>
+            <li>マウス: ポインタ方向へ移動</li>
+            <li>Shift: ブースト（質量を消費）</li>
+            <li>Space: 微小放出（リスク/リターン）</li>
+          </ul>
+        </div>
+
+        <div class="settings">
+          <h2>設定</h2>
+          <label>
+            音量
+            <input id="volume" type="range" min="0" max="1" step="0.01" />
+          </label>
+          <label class="toggle">
+            <input id="shakeToggle" type="checkbox" />
+            画面揺れ
+          </label>
+        </div>
+
+        <button id="startButton">Start</button>
+      </div>
+    </div>
+
+    <div id="resultScreen" class="screen">
+      <div class="panel">
+        <h2>Result</h2>
+        <div id="resultStats"></div>
+        <button id="retryButton">Play Again</button>
+      </div>
+    </div>
+
+    <div id="hud" class="hidden">
+      <div class="hud-item">Score: <span id="hudScore">0</span></div>
+      <div class="hud-item">Size: <span id="hudSize">0</span></div>
+      <div class="hud-item">Chain: <span id="hudChain">x1</span></div>
+      <div class="hud-item">Threat: <span id="hudThreat">1</span></div>
+      <div class="hud-item">Time: <span id="hudTime">0.0s</span></div>
+      <div class="hud-item">High: <span id="hudHigh">0</span></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
