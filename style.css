@@ -4,14 +4,6 @@ index f0998d804b46249ab6fdb14bd73f0032f3dcc9bd..3962a49204f908178115df99f5a16d14
 +++ b/style.css
 @@ -1,139 +1,86 @@
  :root {
--  --bg: #111827;
--  --panel: #1f2937;
--  --panel-2: #374151;
--  --text: #f9fafb;
--  --accent: #22d3ee;
--  --warn: #fb7185;
--  --cell-size: min(16vw, 74px);
--  font-family: "Inter", "Hiragino Kaku Gothic ProN", sans-serif;
 +  color-scheme: dark;
 +  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 +  --bg: #020617;
@@ -24,33 +16,19 @@ index f0998d804b46249ab6fdb14bd73f0032f3dcc9bd..3962a49204f908178115df99f5a16d14
  
  body {
    margin: 0;
--  background: radial-gradient(circle at top, #1f2937, #111827);
 +  background: radial-gradient(circle at top, #0f172a, #020617);
    color: var(--text);
--  min-height: 100vh;
  }
  
--.app { max-width: 760px; margin: 0 auto; padding: 16px; }
 +.app {
 +  max-width: 980px;
 +  margin: 0 auto;
 +  padding: 16px;
 +}
  
--.topbar { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
--h1 { margin: 0; font-size: 1.5rem; }
--.subtitle { margin: 4px 0 0; opacity: 0.8; font-size: 0.9rem; }
--.top-actions { display: flex; gap: 8px; }
 +h1 { margin-bottom: 2px; }
 +p { margin-top: 0; opacity: 0.9; }
  
--button {
--  border: none;
--  border-radius: 10px;
--  background: var(--panel-2);
--  color: var(--text);
--  padding: 9px 12px;
--  font-weight: 700;
 +.toolbar,
 +.stats,
 +.tools {
@@ -59,78 +37,32 @@ index f0998d804b46249ab6fdb14bd73f0032f3dcc9bd..3962a49204f908178115df99f5a16d14
 +  gap: 8px;
 +  margin-bottom: 10px;
  }
--button:active { transform: scale(0.96); }
--button.active { outline: 2px solid var(--accent); }
  
--.stats { margin-top: 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
--.stat {
--  background: #0f172a;
 +.toolbar,
 +.stats {
 +  background: rgba(15, 23, 42, 0.8);
    border: 1px solid #334155;
--  border-radius: 12px;
--  padding: 8px;
--  text-align: center;
 +  border-radius: 10px;
 +  padding: 10px;
  }
--.stat span { display: block; font-size: 0.75rem; opacity: 0.7; }
--.stat strong { font-size: 1.2rem; }
--
--.controls { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
--.line-picker { background: rgba(15, 23, 42, 0.65); border-radius: 12px; padding: 10px; }
--.line-picker h2 { margin: 0 0 8px; font-size: 0.95rem; }
--.button-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
--.button-grid button { padding: 8px 0; }
- 
--.board-wrap { margin-top: 12px; position: relative; }
--.direction-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
--
--.board {
--  position: relative;
--  background: var(--panel);
--  border-radius: 14px;
--  padding: 10px;
--  display: grid;
--  grid-template-columns: repeat(5, var(--cell-size));
--  grid-template-rows: repeat(5, var(--cell-size));
--  gap: 6px;
--  justify-content: center;
--  touch-action: none;
 +.stats div {
 +  min-width: 120px;
  }
  
--.cell {
--  border-radius: 10px;
--  background: #0f172a;
 +button,
 +select {
 +  background: var(--panel);
 +  color: var(--text);
    border: 1px solid #334155;
--  display: flex;
--  align-items: center;
--  justify-content: center;
--  font-weight: 800;
 +  border-radius: 8px;
 +  padding: 8px 10px;
 +  font-weight: 600;
  }
--.cell.filled { background: #155e75; }
- 
--.cell.merged-pop {
--  animation: stickPop 200ms cubic-bezier(0.2, 0.9, 0.25, 1.2);
 +button.active {
 +  border-color: var(--accent);
 +  box-shadow: 0 0 0 1px var(--accent) inset;
  }
  
--@keyframes stickPop {
--  0% { transform: scale(0.78); filter: brightness(1.25); }
--  50% { transform: scale(1.15); }
--  100% { transform: scale(1); filter: brightness(1); }
 +#board-canvas {
 +  width: 100%;
 +  max-width: 820px;
@@ -140,58 +72,18 @@ index f0998d804b46249ab6fdb14bd73f0032f3dcc9bd..3962a49204f908178115df99f5a16d14
 +  display: block;
  }
  
--.floating-layer {
--  position: absolute;
--  inset: 0;
--  pointer-events: none;
--  overflow: hidden;
 +.message {
 +  min-height: 24px;
 +  margin: 10px 0;
 +  font-weight: 600;
  }
  
--.tile-ghost {
--  position: absolute;
--  display: flex;
 +.toggle {
 +  display: inline-flex;
    align-items: center;
--  justify-content: center;
--  border-radius: 10px;
--  border: 1px solid #67e8f9;
--  color: #e6fffe;
--  font-weight: 800;
--  box-shadow: 0 3px 14px rgba(34, 211, 238, 0.22);
--  will-change: transform;
--}
--
--.float-score {
--  position: absolute;
--  color: var(--accent);
--  font-weight: 800;
--  animation: rise 620ms ease forwards;
--}
--@keyframes rise {
--  0% { opacity: 0; transform: translateY(10px) scale(0.9); }
--  20% { opacity: 1; }
--  100% { opacity: 0; transform: translateY(-22px) scale(1.06); }
--}
--
--.status { min-height: 1.4rem; margin: 10px 0; }
--.status.over { color: var(--warn); font-weight: 700; }
--
--dialog {
--  width: min(92vw, 500px);
--  border-radius: 12px;
--  border: 1px solid #334155;
--  background: #0b1220;
--  color: var(--text);
 +  gap: 4px;
  }
  
  @media (max-width: 640px) {
--  .stats { grid-template-columns: repeat(2, 1fr); }
--  .controls { grid-template-columns: 1fr; }
 +  .stats div { min-width: 100px; }
  }
