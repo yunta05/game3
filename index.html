@@ -8,31 +8,16 @@ index 4105506d37d1e85f3a7828b7e839b5b4a1e6bf30..cfd1b840e2f36c68b6f5b7069573036b
    <head>
      <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
--    <title>ライン固定パズル</title>
 +    <title>ナノマシン侵食パズル</title>
      <link rel="stylesheet" href="style.css" />
    </head>
    <body>
      <main class="app">
--      <header class="topbar">
--        <div>
--          <h1>ライン固定パズル</h1>
--          <p class="subtitle">5×5 / シフト → 合成 → 生成</p>
--        </div>
--        <div class="top-actions">
--          <button id="new-game-btn" type="button">New Game</button>
--          <button id="help-btn" type="button">Help</button>
--        </div>
 +      <header>
 +        <h1>ナノマシン侵食パズル</h1>
 +        <p>指数増殖を先読みして封じるターン制パズル</p>
        </header>
  
--      <section class="stats" aria-label="stats">
--        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
--        <div class="stat"><span>Best</span><strong id="best-score">0</strong></div>
--        <div class="stat"><span>Max Tile</span><strong id="max-tile">0</strong></div>
--        <div class="stat"><span>Best Tile</span><strong id="best-tile">0</strong></div>
 +      <section class="toolbar">
 +        <label>レベル
 +          <select id="level-select"></select>
@@ -42,15 +27,6 @@ index 4105506d37d1e85f3a7828b7e839b5b4a1e6bf30..cfd1b840e2f36c68b6f5b7069573036b
 +        <label class="toggle"><input id="predict-toggle" type="checkbox" checked /> 次ターン予測表示</label>
        </section>
  
--      <section class="controls" aria-label="line controls">
--        <div class="line-picker">
--          <h2>行選択</h2>
--          <div id="row-buttons" class="button-grid"></div>
--        </div>
--        <div class="line-picker">
--          <h2>列選択</h2>
--          <div id="col-buttons" class="button-grid"></div>
--        </div>
 +      <section class="stats">
 +        <div>Turn <strong id="turn">0</strong></div>
 +        <div>Nano <strong id="nano-count">0</strong></div>
@@ -59,52 +35,26 @@ index 4105506d37d1e85f3a7828b7e839b5b4a1e6bf30..cfd1b840e2f36c68b6f5b7069573036b
 +        <div>Clear <strong id="cleared-count">0 / 10</strong></div>
        </section>
  
--      <section class="board-wrap">
--        <div class="direction-buttons" aria-label="direction controls">
--          <button data-dir="up" type="button">↑</button>
--          <button data-dir="left" type="button">←</button>
--          <button data-dir="right" type="button">→</button>
--          <button data-dir="down" type="button">↓</button>
--        </div>
--        <div id="board" class="board" aria-label="game board"></div>
--        <div id="floating-layer" class="floating-layer" aria-hidden="true"></div>
 +      <section class="tools">
 +        <button id="tool-block" type="button" data-tool="block">Block</button>
 +        <button id="tool-purge" type="button" data-tool="purge">Purge</button>
 +        <button id="tool-splitter" type="button" data-tool="splitter">Splitter</button>
        </section>
  
--      <p id="status" class="status" role="status"></p>
--    </main>
 +      <canvas id="board-canvas" width="480" height="480" aria-label="ゲーム盤面"></canvas>
 +      <p id="message" class="message"></p>
  
--    <dialog id="help-dialog">
--      <article>
--        <h2>遊び方</h2>
 +      <details>
 +        <summary>ルール</summary>
          <ul>
--          <li>1手で「1行または1列」を選んで、上下左右へ1マスシフトします。</li>
--          <li>端からはみ出した側は消え、反対端は空白になります（トーラスなし）。</li>
--          <li>シフト後、上下左右で隣接した同じ値が自動合成され、値が+1されます。</li>
--          <li>合成は連鎖し、同ターン内で1タイルは1回のみ合成対象になります。</li>
--          <li>合成後に空セルへ新タイルが1枚出現します（終盤は確率調整）。</li>
--          <li>空セル0で生成できないとゲームオーバーです。</li>
 +          <li>クリックしたセルに現在のツールを適用して1ターン進行。</li>
 +          <li>増殖は同時更新（同ターン内で連鎖しない）。</li>
 +          <li>Blockは侵食不可、PurgeはNano消去、Splitterは侵食通過を遮断。</li>
 +          <li>Nanoが増えすぎるかGoal侵入で失敗。条件達成で勝利。</li>
          </ul>
--        <p>連鎖加点倍率: k回目の合成で「生成値 × (k+1)」。</p>
--        <p>キーボード: <code>R/C</code>で行列モード切替、<code>1-5</code>で番号選択、矢印/WASDでシフト。</p>
--        <button id="close-help-btn" type="button">閉じる</button>
--      </article>
--    </dialog>
 +      </details>
 +    </main>
  
--    <script src="game.js"></script>
 +    <script type="module" src="src/main.js"></script>
    </body>
  </html>
